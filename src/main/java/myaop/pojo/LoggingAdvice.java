@@ -1,19 +1,19 @@
 package myaop.pojo;
 
-import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.util.StopWatch;
 
 import myaop.java.App;
 
-public class LoggingAdvice implements MethodInterceptor{
+public class LoggingAdvice {
 	static final Logger logger = LogManager.getLogger(App.class);
 	
-	public Object invoke(MethodInvocation arg0) throws Throwable {
+	public Object invoke(ProceedingJoinPoint arg0) throws Throwable {
 		StopWatch watch = new StopWatch();
-		String methodName = arg0.getMethod().getName();
+		String methodName = arg0.getSignature().getName();
 		
 		watch.start(methodName);
 		logger.info("[LOG]method : " + methodName + "시작됨");
