@@ -3,5 +3,31 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
+	<bean id="impeCalc" class="myaop.spring.ImpeCalculator"/>
+	<bean id="logAdvice" class="myaop.spring.LoggingAdvice"/>
+	
+	<bean id="logAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="logAdvice" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern">
+					<value>.*factorial.*</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="impeCalc" />
+		<property name="interceptorNames">
+			<list>
+				<value>logAdvisor</value>
+			</list>
+		</property>
+	</bean>
 </beans>
+
+
+
+
+
