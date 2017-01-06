@@ -6,9 +6,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
 	public static void main(String[] args) {
 		ApplicationContext ctx = 
-			new ClassPathXmlApplicationContext("classpath:myaop/spring/*.xml");
+			new ClassPathXmlApplicationContext("classpath:myaop/pojo/*.xml");
 		
-		Calculator cal = ctx.getBean("proxy", Calculator.class);
+		Calculator cal = ctx.getBean("impeCalc", Calculator.class);
 		cal.factorial(20);
 	}
 }
